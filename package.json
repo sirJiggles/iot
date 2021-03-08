@@ -6,9 +6,12 @@
   "private": true,
   "scripts": {
     "lint": "lerna run lint --parallel",
-    "deskBuddy": "cd packages/deskBuddy && yarn start"
+    "deskBuddy": "cd packages/desk-buddy && yarn start"
   },
   "devDependencies": {
     "lerna": "^4.0.0"
+  },
+  "workspaces":{
+    "packages": ["packages/*"]
   }
 }

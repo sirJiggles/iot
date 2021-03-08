@@ -1,10 +1,11 @@
 import * as five from 'johnny-five'
+import { setInterval } from 'timers'
 import { connect, getStats } from './binance'
 
-const lcd = () => {
-  connect()
+let lcd: five.LCD
 
-  const lcd = new five.LCD({
+const initLcd = () => {
+  lcd = new five.LCD({
     // LCD pin name  RS  EN  DB4 DB5 DB6 DB7
     // Arduino pin # 7    8   9   10  11  12
     pins: [8, 7, 12, 11, 10, 9],
@@ -19,23 +20,31 @@ const lcd = () => {
   })
 
   // Tell the LCD you will use these characters:
-  lcd.useChar('heart')
-
-  lcd.clear().print('Gareth Rocks')
-  lcd.cursor(1, 0)
-
-  // Line 2: I <3 johnny-five
-  // lcd.print('I').write(7).print(' johnny-five');
-  // can now be written as:
-  lcd.print('I :heart: Lisa')
-
-  // this.wait(3000, function () {
-  //   screen.clear().cursor(0, 0).print('I :check::heart: 2 :duck: :)');
-  // });
-
-  // this.repl.inject({
-  //   screen: lcd,
-  // });
+  lcd.useChar('arrowsw')
+  lcd.useChar('arrowne')
+  lcd.useChar('euro')
 }
 
-export { lcd }
+const getData = async () => {
+  // start polling for the stats @TODO
+  const { stats, balance } = await getStats(['BTC', 'ENJ'])
+
+  lcd.clear().print(`:euro: ${balance.toFixed(2)}`)
+  lcd.cursor(1, 0)
+  lcd.print(stats)
+}
+
+const ldcScreen = async () => {
+  // set up the lcd screen
+  initLcd()
+  // connect to binance
+  await connect()
+
+  // get the data once first
+  getData()
+
+  // get the stats every few mins
+  setInterval(getData, 120000)
+}
+
+export { ldcScreen }

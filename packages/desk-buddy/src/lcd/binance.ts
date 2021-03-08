@@ -1,37 +1,69 @@
-import Binance from 'binance-api-node'
-import * as dotenv from 'dotenv'
+import Binance, {
+  Binance as BinanceClient,
+  DailyStatsResult,
+} from 'binance-api-node'
 
-let client;
+type CoinStats = {
+  stats: string
+  balance: number
+}
 
-const getStats = async (coins) => {
+let client: BinanceClient
+
+const getStats = async (coins: Array<string>): Promise<CoinStats> => {
+  const percentageChanges = []
+
   try {
-    const info = await client.accountInfo();
-    console.log(info);
-    info.map(())
-  } catch (error) {
-    throw new Error(`could not get account info: ${error}`);
-  }
-};
+    const accountInfo = await client.accountInfo()
 
-const stats = async () => {
-  try {
-    const btc = await client.dailyStats({ symbol: 'BTC' });
-    const enjin = await client.dailyStats({ symbol: 'ENJ' });
+    // check for the balances we care about
+    const balances = accountInfo.balances.filter((balance) =>
+      coins.includes(balance.asset),
+    )
+
+    let balance = 0
+
+    // go through each coin and get the daily stats of it
+    for (const coin of coins) {
+      console.log('about to check ' + coin)
+      const { priceChangePercent, lastPrice } = (await client.dailyStats({
+        symbol: `${coin}USDT`,
+      })) as DailyStatsResult
+
+      const symbol = parseFloat(priceChangePercent) > 0 ? 'arrowne' : 'arrowsw'
+      percentageChanges.push(
+        `${coin}:${symbol}:${priceChangePercent.slice(0, -2)}`,
+      )
+
+      const amountWeHave = balances.filter(
+        (balance) => balance.asset === coin,
+      )[0].free
+
+      // add the value of the coin we care about to the balance
+      balance += parseFloat(amountWeHave) * parseFloat(lastPrice)
+    }
+
+    // convert the USD balance to EUR
+    const eurData = (await client.dailyStats({
+      symbol: `EURUSDT`,
+    })) as DailyStatsResult
+
+    balance = balance / parseFloat(eurData.lastPrice)
 
     return {
-      enj: enjin.priceChangePercent,
-      btc: btc.priceChangePercent,
-    };
+      stats: percentageChanges.join(' '),
+      balance,
+    }
   } catch (error) {
-    throw new Error('could not get the stats for the coinz');
+    throw new Error(`could not get info from binance: ${error}`)
   }
-};
+}
 
 const connect = async () => {
   client = Binance({
     apiKey: process.env.BINANCE_KEY,
     apiSecret: process.env.BINANCE_SECRET,
-  });
-};
+  })
+}
 
-export {connect, getStats}
+export { connect, getStats }
