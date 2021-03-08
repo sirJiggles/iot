@@ -25,7 +25,6 @@ const getStats = async (coins: Array<string>): Promise<CoinStats> => {
 
     // go through each coin and get the daily stats of it
     for (const coin of coins) {
-      console.log('about to check ' + coin)
       const { priceChangePercent, lastPrice } = (await client.dailyStats({
         symbol: `${coin}USDT`,
       })) as DailyStatsResult
