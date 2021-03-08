@@ -1,0 +1,14 @@
+{
+  "name": "iot",
+  "author": "Gareth Fuller",
+  "license": "Apache-2.0",
+  "description": "some internet of things applications",
+  "private": true,
+  "scripts": {
+    "lint": "lerna run lint --parallel",
+    "deskBuddy": "cd packages/deskBuddy && yarn start"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}
