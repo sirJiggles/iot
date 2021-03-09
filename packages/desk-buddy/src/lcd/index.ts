@@ -7,8 +7,7 @@ let lcd: five.LCD
 const initLcd = () => {
   lcd = new five.LCD({
     // LCD pin name  RS  EN  DB4 DB5 DB6 DB7
-    // Arduino pin # 7    8   9   10  11  12
-    pins: [8, 7, 12, 11, 10, 9],
+    pins: [7, 6, 5, 4, 3, 2],
     // backlight: 6,
     rows: 2,
     cols: 20,
@@ -29,7 +28,7 @@ const getData = async () => {
   // start polling for the stats @TODO
   const { stats, balance } = await getStats(['BTC', 'ENJ'])
 
-  lcd.clear().print(`:euro: ${balance.toFixed(2)}`)
+  lcd.clear().print(`:euro:${balance.toFixed(2)}`)
   lcd.cursor(1, 0)
   lcd.print(stats)
 }
