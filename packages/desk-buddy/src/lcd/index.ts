@@ -1,4 +1,5 @@
 import * as five from 'johnny-five'
+import * as scroll from 'lcd-scrolling'
 import { setInterval } from 'timers'
 import { connect, getStats } from './binance'
 
@@ -22,15 +23,32 @@ const initLcd = () => {
   lcd.useChar('arrowsw')
   lcd.useChar('arrowne')
   lcd.useChar('euro')
+
+  scroll.setup({
+    lcd,
+    // Optional parameters defaults
+    // debug: false, - true will enable console.log()
+    char_length: 16,
+    // row: 2, - Number of rows on your LCD
+    // firstCharPauseDuration: 4000, - Duration of the pause before your text start scrolling. Value in ms
+    // lastCharPauseDuration: 1000, - Duration to wait before restarting the animation
+    scrollingDuration: 1200,
+    full: false,
+    // full: true - Extend text with white space to be animated out of the screen completely
+  })
 }
 
 const getData = async () => {
-  // start polling for the stats @TODO
-  const { stats, balance } = await getStats(['BTC', 'ENJ'])
+  const { stats, balance } = await getStats(['BTC', 'ENJ', 'CHZ'])
 
-  lcd.clear().print(`:euro:${balance.toFixed(2)}`)
-  lcd.cursor(1, 0)
-  lcd.print(stats)
+  // lcd.clear()
+  scroll.clear()
+  scroll.line(0, `:euro:${balance.toFixed(2)}`)
+  scroll.line(1, stats)
+  // lcd.cursor(0, 0)
+  // lcd.clear().print(`:euro:${balance.toFixed(2)}`)
+  // lcd.cursor(1, 0)
+  // lcd.autoscroll().print(stats)
 }
 
 const ldcScreen = async () => {

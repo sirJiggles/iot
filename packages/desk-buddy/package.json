@@ -17,6 +17,7 @@
     "binance-api-node": "^0.10.33",
     "dotenv": "^8.2.0",
     "johnny-five": "^2.0.0",
+    "lcd-scrolling": "^1.0.2",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {

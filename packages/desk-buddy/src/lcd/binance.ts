@@ -31,7 +31,7 @@ const getStats = async (coins: Array<string>): Promise<CoinStats> => {
 
       const symbol = parseFloat(priceChangePercent) > 0 ? 'arrowne' : 'arrowsw'
       percentageChanges.push(
-        `${coin}:${symbol}:${priceChangePercent.slice(0, -2)}`,
+        `${coin}:${symbol}:${parseFloat(priceChangePercent).toFixed(1)}`,
       )
 
       const amountWeHave = balances.filter(
