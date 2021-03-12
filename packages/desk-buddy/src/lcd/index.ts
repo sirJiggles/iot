@@ -20,8 +20,8 @@ const initLcd = () => {
   })
 
   // Tell the LCD you will use these characters:
-  lcd.useChar('arrowsw')
-  lcd.useChar('arrowne')
+  // lcd.useChar('arrowsw')
+  // lcd.useChar('arrowne')
   lcd.useChar('euro')
 
   scroll.setup({

@@ -29,9 +29,8 @@ const getStats = async (coins: Array<string>): Promise<CoinStats> => {
         symbol: `${coin}USDT`,
       })) as DailyStatsResult
 
-      const symbol = parseFloat(priceChangePercent) > 0 ? 'arrowne' : 'arrowsw'
       percentageChanges.push(
-        `${coin}:${symbol}:${parseFloat(priceChangePercent).toFixed(1)}`,
+        `${coin} ${parseFloat(priceChangePercent).toFixed(2)}`,
       )
 
       const amountWeHave = balances.filter(
