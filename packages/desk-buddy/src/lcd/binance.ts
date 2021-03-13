@@ -30,7 +30,7 @@ const getStats = async (coins: Array<string>): Promise<CoinStats> => {
       })) as DailyStatsResult
 
       percentageChanges.push(
-        `${coin} ${parseFloat(priceChangePercent).toFixed(2)}`,
+        `${coin}${parseFloat(priceChangePercent).toFixed(2)}`,
       )
 
       const amountWeHave = balances.filter(
