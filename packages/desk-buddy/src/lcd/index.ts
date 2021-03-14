@@ -39,7 +39,7 @@ const initLcd = () => {
 }
 
 const getData = async () => {
-  const { stats, balance } = await getStats(['ANKR', 'LUNA', 'CHZ'])
+  const { stats, balance } = await getStats(['BTC', 'ETH', 'LUNA'])
 
   // lcd.clear()
   scroll.clear()
