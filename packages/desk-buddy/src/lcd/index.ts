@@ -19,9 +19,6 @@ const initLcd = () => {
     // dots: matrix dimensions, defaults to "5x8"
   })
 
-  // Tell the LCD you will use these characters:
-  // lcd.useChar('arrowsw')
-  // lcd.useChar('arrowne')
   lcd.useChar('euro')
 
   scroll.setup({
@@ -39,16 +36,11 @@ const initLcd = () => {
 }
 
 const getData = async () => {
-  const { stats, balance } = await getStats(['BTC', 'ETH', 'LUNA'])
+  const { stats, balance } = await getStats(['BTC', 'ENJ', 'LUNA'])
 
-  // lcd.clear()
   scroll.clear()
   scroll.line(0, `:euro:${balance.toFixed(2)}`)
   scroll.line(1, stats)
-  // lcd.cursor(0, 0)
-  // lcd.clear().print(`:euro:${balance.toFixed(2)}`)
-  // lcd.cursor(1, 0)
-  // lcd.autoscroll().print(stats)
 }
 
 const ldcScreen = async () => {
