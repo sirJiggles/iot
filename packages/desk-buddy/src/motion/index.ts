@@ -2,8 +2,9 @@ import * as five from 'johnny-five'
 import { lights } from './lights'
 import { setStatus } from './slack'
 
-const motion = (pinNumber = 1) => {
-  const motionSensor = new five.Motion(pinNumber)
+const motion = (pin: string) => {
+  // @ts-ignore
+  const motionSensor = new five.Motion(pin)
   let wasMoving = false
 
   motionSensor.on('motionstart', () => {
