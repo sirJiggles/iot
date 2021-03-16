@@ -36,7 +36,7 @@ const initLcd = () => {
 }
 
 const getData = async () => {
-  const { stats, balance } = await getStats(['BTC', 'ENJ', 'LUNA'])
+  const { stats, balance } = await getStats(['LUNA', 'ENJ', 'BTC'])
 
   scroll.clear()
   scroll.line(0, `:euro:${balance.toFixed(2)}`)
