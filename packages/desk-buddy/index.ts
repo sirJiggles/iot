@@ -1,7 +1,12 @@
 import { motion } from './src/motion'
 import { ldcScreen } from './src/lcd'
 import * as five from 'johnny-five'
-const board = new five.Board()
+import * as raspi from 'raspi-io'
+
+const board = new five.Board({
+  io: new raspi()
+})
+
 
 import * as dotenv from 'dotenv'
 dotenv.config({ path: __dirname + '/.env' })

@@ -18,7 +18,7 @@
     "dotenv": "^8.2.0",
     "johnny-five": "^2.0.0",
     "lcd-scrolling": "^1.0.2",
-    "node-fetch": "^2.6.1"
+    "raspi-io": "^11.0.0"
   },
   "devDependencies": {
     "@iot/eslint-config": "1.0.0",
