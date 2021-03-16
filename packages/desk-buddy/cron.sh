@@ -1,2 +1,2 @@
 sleep 10
-/usr/bin/node /home/pi/Desktop/development/iot/packages/desk-buddy/dist/index.js
+sudo /usr/local/bin/forever start /home/pi/Desktop/development/iot/packages/desk-buddy/dist/index.js
