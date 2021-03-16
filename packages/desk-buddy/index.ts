@@ -8,7 +8,7 @@ dotenv.config({ path: __dirname + '/.env' })
 
 board.on('ready', function () {
   // motion sensor on pin 13
-  motion(8)
+  motion(13)
   // the lcd screen that shows us the lights
   ldcScreen()
 })

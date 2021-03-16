@@ -8,7 +8,7 @@ let lcd: five.LCD
 const initLcd = () => {
   lcd = new five.LCD({
     // LCD pin name  RS  EN  DB4 DB5 DB6 DB7
-    pins: [7, 6, 5, 4, 3, 2],
+    pins: [27, 22, 5, 6, 23, 24],
     // backlight: 6,
     rows: 2,
     cols: 20,
