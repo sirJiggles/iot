@@ -36,7 +36,7 @@ const initLcd = () => {
 }
 
 const getData = async () => {
-  const { stats, balance } = await getStats(['DENT'])
+  const { stats, balance } = await getStats(['OMG', 'KNC'])
 
   lcd.clear()
   scroll.clear()
